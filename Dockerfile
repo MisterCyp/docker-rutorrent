@@ -178,7 +178,7 @@ RUN if [ "${FILEBOT}" == "true" ]; then \
 
 COPY rootfs /
 RUN chmod +x /usr/local/bin/startup
-VOLUME /data /config
+VOLUME /data /config /nginx
 EXPOSE 8080
 ENTRYPOINT ["/usr/local/bin/startup"]
 CMD ["/bin/s6-svscan", "/etc/s6.d"]
