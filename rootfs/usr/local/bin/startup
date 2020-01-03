@@ -54,7 +54,7 @@ mkdir -p \
   /config/custom_themes \
   /config/custom_plugins
 
-chown "${UID}:${GID}" /data/.watch /data/.session /data/downloads
+chown "${UID}:${GID}" /data/.watch /data/.session /data/downloads /nginx
 
 # Generate configuration
 f_log INF "Generate configuration ..."
@@ -75,6 +75,16 @@ if [ -d /config/rutorrent/share ]; then
 else
   mv /rutorrent/app/share /config/rutorrent
   ln -s /config/rutorrent/share /rutorrent/app/share
+fi
+
+# Authentification in Rutorrent
+
+if [ -e /nginx/.htpasswd ]; then
+  sed -i -e "s|<AUTH>|auth_basic \"Restricted Content\";\n    auth_basic_user_file /nginx/.htpasswd;|g" /etc/nginx/nginx.conf
+  f_log INF "Authentification required for rutorrent"
+else
+  sed -i -e "s|<AUTH>||g" /etc/nginx/nginx.conf
+  f_log WRN "No Authentification for rutorrent"
 fi
 
 # Add custom plugins
