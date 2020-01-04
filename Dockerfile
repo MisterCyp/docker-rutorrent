@@ -89,7 +89,7 @@ FROM alpine:3.11
 LABEL description="rutorrent based on alpinelinux" \
       maintainer="magicalex <magicalex@mondedie.fr>"
 
-ARG FILEBOT=true
+ARG FILEBOT=false
 ARG FILEBOT_VER=4.8.5
 ARG CHROMAPRINT_VER=1.4.3
 
